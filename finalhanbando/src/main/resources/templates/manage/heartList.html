@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{/layout/header::head(|번 회원 찜목록|)}"></head> 
+<style>
+  .main_wrapper {
+    display: flex;
+  }
+  .left_btn {
+    flex: 0 0 20%;
+  }
+  .right_list {
+    flex: 0 0 80%;
+  }
+  
+  #btn_show_detail {
+    cursor: pointer;
+    height: 38px; 
+    color: #96B6C5;
+    background-color: #fff;
+    border-color: #96B6C5;
+    border-radius: 10px;
+    transition: all 0.3s;
+    margin: 5% auto;
+  }
+
+  #btn_show_list {
+    cursor: pointer;
+    height: 38px; 
+    color: #fff;
+    background-color: #96B6C5;
+    border-color: #96B6C5;
+    border-radius: 10px;
+    transition: all 0.3s;
+    margin: 5% auto;
+  }
+  
+  #btn_show_detail:hover {
+    color: #fff;
+    background-color: #96B6C5;
+  }
+  
+  
+  
+      /* CSS 초기화 */
+    body, div, ul, li, h1, h2, h3, h4, h5, h6, p {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    ul {
+      list-style-type: none;
+    }
+
+    /* 탭 메뉴 */
+    .wrap {
+      width: 100%;
+      margin: 20px auto;  /* 화면의 가운데로 .wrap을 배치 */
+    }
+    .screen_out {
+      display: none;      /* 화면에서 없앰 */
+    }
+    .tab_menu {
+      width: 100%;
+      display: flex;
+    }
+    .tab_menu > label {
+      display: block;  /* width, height를 지정할 수 있는 블록 요소로 변경 */
+      width: 50%;
+      height: 50px;
+      text-align: center; /* 가로 가운데 정렬 */
+      line-height: 50px;  /* 세로 가운데 정렬 효과 */
+      border: 1px solid gray;
+      cursor: pointer;
+    }
+    .tab_menu > label:first-of-type {
+      border-right: 0;
+    }
+    .tab_menu > label:hover {
+      background-color: gray;
+      color: white;
+    }
+    #first_tab:checked ~ div:nth-of-type(1) > label:nth-of-type(1) {
+      background-color: silver;
+    }
+    #second_tab:checked ~ div:nth-of-type(1) > label:nth-of-type(2) {
+      background-color: silver;
+    }
+    .content_wrap {
+      width: 100%;
+      padding-top: 20px;
+      border: 1px solid gray;
+      border-top: 0;
+      display: none; /* 평소에 숨겨둠 */
+    }
+    #first_tab:checked ~ div:nth-of-type(2) {
+      display: block;
+    }
+    #second_tab:checked ~ div:nth-of-type(3) {
+      display: block;
+    }
+    .content_wrap .content {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+    }
+    .content_wrap .content > .thumbnail {
+      width: 35%;
+      height: 60px;
+      background-size: cover;
+    }
+    .content_wrap .content > .description {
+      width: 62%;
+      height: 120px;
+    }
+  
+  
+
+</style>
+<script th:inline="javascript">
+  
+  $(() => {
+    fnGetHeartList();
+  })
+  
+  // 전역 변수
+  var page = 1;
+  var totalPage = 0;
+  
+  const fnGetHeartList = () => {
+    $.ajax({
+      // 요청
+      type: 'get',
+      url: '/manage/getHeartList.do',
+      data: 'page=' + page,
+      // 응답
+      dataType: 'json',
+      success: (resData) => {  // resData = {"heartList": [], "totalPage": 5}
+        totalPage = resData.totalPage;
+        $.each(resData.heartList, (i, heart) => {
+          let str = '<li class="heart" data-heart_no="' + heart.userNo + '">';
+          str += '<div>' + heart.packageDto.packageTitle + '</div>';
+          str += '</li>';
+          $('.heart_ul').append(str);
+        })
+      }
+    })
+  }
+  
+</script>
+
+
+<body>
+	<div th:replace="~{/layout/header::header}"></div>
+	
+	<div class="main_wrap">
+	
+	
+		 <div class="container text-center">
+		  <div class="row">
+		    <div class="col-1">	      
+		    </div>
+        <div class="col-10" style="border:1px gray dotted">
+            <!--/*여기에 작성/ 다 만들고 style 지워주세요  */-->
+		   
+          <div class="main_wrapper">
+           
+            <div class="left_btn">
+              <div><a th:href="@{/manage/userList.do}"><button type="button" id="btn_show_detail">회원상세보기</button></a></div>
+              <div><a th:href="@{/manage/userList.do}"><button type="button" id="btn_show_list">회원목록보기</button></a></div>
+
+            </div>
+           
+            <div class="right_list">
+               
+              <div class="wrap">
+
+                <!-- 상단 탭 -->
+                  <input type="radio" name="tab" id="first_tab" class="screen_out" checked>
+                  <input type="radio" name="tab" id="second_tab" class="screen_out">
+                <div class="tab_menu">
+                  <label for="first_tab">패키지 찜</label>
+                  <label for="second_tab">호텔 찜</label>
+                </div>
+            
+                <!-- 1번째 탭 -->
+                <div class="content_wrap">
+                  <ul class="heart_ul">
+
+
+                  </ul>
+                </div>
+            
+                <!-- 2번째 탭 -->
+                <div class="content_wrap">
+                  <ul>
+                    <!-- 각 메뉴 -->
+                    <li class="content">
+                      <!-- 썸네일 이미지 -->
+                      <div class="thumbnail"></div>
+                      <!-- 제목 및 내용 -->
+                      <div class="description">
+                        <h4>제목4</h4>
+                        <p>내용4</p>
+                      </div>
+                    </li>
+                    <!-- 각 메뉴 -->
+                    <li class="content">
+                      <!-- 썸네일 이미지 -->
+                      <div class="thumbnail"></div>
+                      <!-- 제목 및 내용 -->
+                      <div class="description">
+                        <h4>제목5</h4>
+                        <p>내용5</p>
+                      </div>
+                    </li>
+                    <!-- 각 메뉴 -->
+                    <li class="content">
+                      <!-- 썸네일 이미지 -->
+                      <div class="thumbnail"></div>
+                      <!-- 제목 및 내용 -->
+                      <div class="description">
+                        <h4>제목6</h4>
+                        <p>내용6</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+            
+              </div>
+               
+            </div>
+            
+           
+          </div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        
+        
+		      	
+		    </div>
+		    <div class="col-1">	      
+		    </div>
+		  </div>
+	  </div>
+	
+	</div>
+
+	
+	
+	
+	<div th:replace="~{/layout/footer::footer}"></div>
+</body>
+</html>
+

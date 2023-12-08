@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+  <!-- 설정 -->
+  <settings>
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+  </settings>
+  <typeAliases>
+    <typeAlias alias="ReserveDto" type="com.gdu.finalhanbando.dto.ReserveDto"/>
+    <typeAlias alias="TouristDto" type="com.gdu.finalhanbando.dto.TouristDto"/>
+    <typeAlias alias="PaymentDto" type="com.gdu.finalhanbando.dto.PaymentDto"/>
+    
+    <typeAlias alias="HeartDto"        type="com.gdu.finalhanbando.dto.HeartDto"/>
+    <typeAlias alias="PackageDto"      type="com.gdu.finalhanbando.dto.PackageDto"/>
+    <typeAlias alias="ProductImageDto" type="com.gdu.finalhanbando.dto.ProductImageDto"/>
+    <typeAlias alias="RegionDto"       type="com.gdu.finalhanbando.dto.RegionDto"/>
+    <typeAlias alias="ReviewDto"       type="com.gdu.finalhanbando.dto.ReviewDto"/>
+    <typeAlias alias="ThemeDto"        type="com.gdu.finalhanbando.dto.ThemeDto"/>
+    
+    <typeAlias alias="InquiryDto"       type="com.gdu.finalhanbando.dto.InquiryDto"/>
+    <typeAlias alias="InquiryAnswerDto" type="com.gdu.finalhanbando.dto.InquiryAnswerDto"/>
+    <typeAlias alias="FaqCaDto"         type="com.gdu.finalhanbando.dto.FaqCaDto"/>
+    <typeAlias alias="FaqDto"           type="com.gdu.finalhanbando.dto.FaqDto"/>
+    <typeAlias alias="NoticeDto"        type="com.gdu.finalhanbando.dto.NoticeDto"/>
+    
+    <typeAlias alias="UserDto"         type="com.gdu.finalhanbando.dto.UserDto"/>
+    <typeAlias alias="LeaveUserDto"    type="com.gdu.finalhanbando.dto.LeaveUserDto"/>
+    <typeAlias alias="InactiveUserDto" type="com.gdu.finalhanbando.dto.InactiveUserDto"/>
+    <typeAlias alias="AccessDto"       type="com.gdu.finalhanbando.dto.AccessDto"/>
+    
+    <typeAlias alias="HotelDto"       type="com.gdu.finalhanbando.dto.HotelDto"/>
+    <typeAlias alias="BannerImageDto" type="com.gdu.finalhanbando.dto.BannerImageDto"/>
+    <typeAlias alias="FacilitiesDto"  type="com.gdu.finalhanbando.dto.FacilitiesDto"/>
+    <typeAlias alias="RoomtypeDto"    type="com.gdu.finalhanbando.dto.RoomtypeDto"/>
+    <typeAlias alias="RoomFeatureDto" type="com.gdu.finalhanbando.dto.RoomFeatureDto"/>
+    <typeAlias alias="HotelImageDto"  type="com.gdu.finalhanbando.dto.HotelImageDto"/>
+    <typeAlias alias="RoompriceDto"   type="com.gdu.finalhanbando.dto.RoompriceDto"/>
+    
+  </typeAliases>
+     
+</configuration>

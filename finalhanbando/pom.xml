@@ -9,17 +9,35 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.gdu</groupId>
-  <artifactId>myHome</artifactId>
+  <artifactId>finalhanbando</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>myHome</name>
+  <name>finalhanbando</name>
   <description>Demo project for Spring Boot</description>
   <properties>
     <java.version>11</java.version>
   </properties>
   
-  
+ 
   <dependencies>
     
+
+
+    
+    <!-- 타임리프 추가 라이브러리 -->
+    <dependency>
+        <groupId>org.thymeleaf.extras</groupId>
+        <artifactId>thymeleaf-extras-java8time</artifactId>
+        <version>3.0.4.RELEASE</version>
+    </dependency>
+    
+    
+    <!-- CoolSMS(Maven) -->
+    <dependency>
+        <groupId>net.nurigo</groupId>
+        <artifactId>sdk</artifactId>
+        <version>4.3.0</version>
+    </dependency>
+
     <!-- jasypt(Java Simplified Encryption) -->
     <dependency>
       <groupId>com.github.ulisesbocchio</groupId>
@@ -27,64 +45,64 @@
       <version>3.0.5</version>
     </dependency>
     
-    <!-- 썸네일 자동 생성 -->
+    <!-- 썸네일 자동 생성 -->  
     <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
     <dependency>
-      <groupId>net.coobird</groupId>
-      <artifactId>thumbnailator</artifactId>
-      <version>0.4.20</version>
+        <groupId>net.coobird</groupId>
+        <artifactId>thumbnailator</artifactId>
+        <version>0.4.20</version>
     </dependency>
-    
-    <!-- HTMl 분석기 -->
+  
+    <!-- HTML 분석기 -->
     <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
     <dependency>
-      <groupId>org.jsoup</groupId>
-      <artifactId>jsoup</artifactId>
-      <version>1.15.3</version>
+        <groupId>org.jsoup</groupId>
+        <artifactId>jsoup</artifactId>
+        <version>1.15.3</version>
     </dependency>
     
     <!-- https://mvnrepository.com/artifact/org.json/json -->
     <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20231013</version>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20231013</version>
     </dependency>
     
-    <!-- Random String 생성(이메일 인증 코드 생성) -->
+    <!-- Random String 생성(이메일 인증코드 생성) -->  
     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
     </dependency>
     
-    <!-- 이메일 전송 API (javax.mail) -->
+    <!-- 이메일 전송 API (javax.mail + spring-context-support) -->
     <!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
     <dependency>
-      <groupId>com.sun.mail</groupId>
-      <artifactId>javax.mail</artifactId>
-      <version>1.6.2</version>
+        <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>1.6.2</version>
     </dependency>
-    
-    <!-- 파일 첨부(commons-io + commons-fileupload) -->
+
+    <!-- 파일 첨부( commons-io + commons-fileupload)-->
     <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
     <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.8.0</version>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.8.0</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
     <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
-      <version>1.5</version>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>1.5</version>
     </dependency>
     
-    <!-- Query Log -->
+    <!-- query log -->
     <!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1 -->
     <dependency>
-      <groupId>org.bgee.log4jdbc-log4j2</groupId>
-      <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-      <version>1.16</version>
+        <groupId>org.bgee.log4jdbc-log4j2</groupId>
+        <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+        <version>1.16</version>
     </dependency>
     
     <dependency>
@@ -127,7 +145,8 @@
       <artifactId>mybatis-spring-boot-starter-test</artifactId>
       <version>2.3.1</version>
       <scope>test</scope>
-    </dependency>
+    </dependency> 
+
   </dependencies>
 
   <build>

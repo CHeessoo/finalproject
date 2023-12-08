@@ -1,51 +1,43 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://webfontworld.github.io/TheJamsil/TheJamsil.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
 
-.header_wrap {
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 50px; 
-}
+
 .logo {
-  width: 176px;
-  height: 46px;
-  background-image: url(../../image/goodee.png);
-  background-size: 100%;
-  margin: 50px auto;
+  background-size: 100%; 
   cursor: pointer;
 }
-.login_wrap {
-  width: 100%;
-  height: 64px;
+.logom {
+   background-image: url(../../image/newlogo.png);
+   background-size: contain;
+   background-repeat: no-repeat;
+   width: 330px;
+   height: 100px;
+   
 }
-.ico_user_group {
-  position: absolute;
-  right: 0;
+
+.header_search {	
+	margin-top:20px;
 }
-.ico_user_group i {
-  width: 24px;
+
+.user {
+ margin-top:20px;
+ width: max-content;
+		
 }
-.gnb_wrap {
-  width: 100%;
-  height: 48px;
+.user > a {
+  display: inline-block;
 }
-.gnb {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
+.user div {
+  font-size: 10px;
+  margin-top: 2px;
 }
-.gnb li {
-  width: 100%;
+
+i {
+  margin: 0 5px 0 5px;
 }
-.gnb a {
-  display: block;
-  width: 100%;
-  text-align: center;
-  line-height: 48px;
-  cursor: pointer;
+.collapse {
+	margin-left:9.10%;
 }
+

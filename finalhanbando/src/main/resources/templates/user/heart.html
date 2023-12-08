@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{/layout/header::head('찜페이지')}"></head>
+
+
+<body>
+  
+  <div th:replace="~{/layout/header::header}"></div>
+  
+  <div class="container text-center">  <!-- 그리드 시작 -->  
+    <div class="row">
+      <div class="col-1">
+    <div class="w3-sidebar w3-bar-block" style="width:10%; height:200px;"> <!-- 사이드바 -->
+      <a th:href="@{/user/mypage.form}" class="w3-bar-item w3-button">내정보 수정✏️</a>
+      <a th:href="@{/user/modifyPw.form}" class="w3-bar-item w3-button">비밀번호변경하기💡</a>
+      <a th:href="@{/reserve/reserveList.do(userNo=${session.user.userNo})}" class="w3-bar-item w3-button">나의 예약보기📆</a>
+    </div>    
+      </div>
+      <div class="col-10">
+       <p style="font-size: 30px;">💙나의 찜목록💙</p>
+       <table class="table w-75 p-3" style="margin: auto;">
+          <thead>
+            <tr class="table-success">
+              <th scope="col">❤️
+                 <input type="checkbox" class="form-check-input" id="chk_all">
+                 <label class="form-check-label" for="chk_all">
+                </label>
+              </th>
+              <th scope="col">상품명</th>
+              <th scope="col">가격</th>
+            </tr>
+          </thead>
+          <tbody>
+           <input type="hidden" id="userNo" th:value="${session.user.userNo}">
+           <th:block th:if="${#lists.isEmpty(heartList)}">
+             <tr style="text-align: center;"> 
+                <td></td>
+                <td>찜한 상품이 없습니다.</td>
+                <td></td>
+             </tr>
+            </th:block>
+           <th:block  th:each=" heart :${heartList}">
+            <tr>             
+              <td scope="row">💙
+                  <input type="checkbox" class="form-check-input chk_each" th:value="${heart.packageDto.packageNo}">
+                  <label class="form-check-label">
+                  </label>
+              </td>
+              <td>
+                <input type="hidden" id="packageNo" th:value="${heart.packageDto.packageNo}">
+                <a th:href="@{/package/detail.do(packageNo=${heart.packageDto.packageNo})}" th:text="${heart.packageDto.packageTitle}"></a>
+              </td>
+              <td th:text="|${heart.packageDto.price} 원|"></td>
+            </tr>
+           </th:block>
+          </tbody>
+          <tfoot>
+           <th:block th:unless="${#lists.isEmpty(heartList)}">
+                <tr>
+                    <td>
+                        <button type="button" class="btn btn-danger remove_heart" onclick="deleteSelected()">삭제</button>
+                    </td>
+                    <td th:utext="${paging}" class="paging"></td>
+                    <td></td>
+                </tr>
+            </th:block>
+          </tfoot>
+          </table>           
+      </div>
+    <div class="col-1">      
+    </div>
+  </div>
+  </div>
+  
+  <script th:inline="javascript">
+
+ // 전역 변수로 선언
+      var total = 0;
+      var selectedItems = [];
+      
+      const fnChkAll = () => {
+        $('#chk_all').click((ev) => {
+          $('.chk_each').prop('checked', $(ev.target).prop('checked'));
+          updateSelectedItems();
+        });
+      }
+      
+      const fnChkEach = () => {
+        $(document).on('click', '.chk_each', () => {
+          updateSelectedItems();
+        });
+      
+        // 선택된 항목 삭제
+        $('.remove_heart').click(() => {
+          deleteSelected(selectedItems);
+        });
+      }
+      
+      const updateSelectedItems = () => {
+        total = 0;
+        selectedItems = [];
+        $.each($('.chk_each'), (i, elem) => {
+          total += $(elem).prop('checked') ? 1 : 0;
+          if ($(elem).prop('checked')) {
+            selectedItems.push($(elem).val());
+          }
+        });
+        $('#chk_all').prop('checked', total === $('.chk_each').length);
+      };
+      
+      const deleteSelected = (selectedItems) => {
+        if (selectedItems.length === 0) {
+          alert('삭제할 항목을 선택하세요.');
+          return;
+        }
+  
+    var confirmResult = confirm('선택된 항목을 삭제하시겠습니까?');
+    if (confirmResult) {
+      $.each(selectedItems, (index, packageNo) => {
+        var userNo = $('#userNo').val();
+  
+        $.ajax({
+          type: 'post',
+          url: '/user/removeHeart.do',
+          data: { userNo: userNo, packageNo: packageNo },
+          dataType: 'json',
+          success: (resData) => {
+            if (resData.removeHeartResult === 1) {
+              $('.chk_each[value=' + packageNo + ']').closest('tr').remove();
+              console.log('성공');
+            } else {
+              console.error('삭제 실패');
+            }
+          },
+          error: (error) => {
+            console.error('삭제 요청 에러:', error);
+            alert('삭제 중 에러가 발생했습니다.');
+          }
+        });
+      });
+    }
+  };
+
+    // 페이지 로딩 후 초기화
+    $(() => {
+      fnChkAll();
+      fnChkEach();
+    });
+
+</script>
+    
+  <div th:replace="~{/layout/footer::footer}"></div>
+  
+</body>
+</html>
